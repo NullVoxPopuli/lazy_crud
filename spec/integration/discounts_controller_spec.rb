@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# this is a nested resource
 describe DiscountsController, type: :controller do
 
   before(:each) do

@@ -54,7 +54,7 @@ module LazyCrud
   end
 
   def create
-    @resource = resource_proxy.build(resource_params)
+    @resource = resource_proxy.send(build_method, resource_params)
 
     # ensure we can still use model name-based instance variables
     set_resource_instance
@@ -105,8 +105,10 @@ module LazyCrud
     @resource = resource_proxy.find(params[:id])
   end
 
+  # use .try() on the params hash, in case the user forgot to provide
+  # the attributes
   def resource_params
-    params[resource_singular_name].permit(self.class.param_whitelist)
+    params[resource_singular_name].try(:permit, self.class.param_whitelist)
   end
 
   # determines if we want to use the parent class if available or
@@ -125,6 +127,13 @@ module LazyCrud
     proxy
   end
 
+  # if the resource_proxy has a parent, we can use the
+  # build method. Otherwise, resource_proxy, is just the
+  # resource's class - in which case we'll use new
+  def build_method
+    resource_proxy.respond_to?(:build) ? :build : :new
+  end
+
   # allows all of our views to still use things like
   # @level, @event, @whatever
   # rather than just @resource
@@ -138,7 +147,7 @@ module LazyCrud
   end
 
   def parent_instance
-    unless @parent
+    if (not @parent) and self.class.parent_class.present?
       # e.g.: Event => 'event'
       parent_instance_name = self.class.parent_class.name.underscore
       @parent = instance_variable_get("@#{parent_instance_name}")

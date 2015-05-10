@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :user do
-
+    name "a user"
   end
 
   factory :event do
