@@ -4,6 +4,7 @@ require 'rails/all'
 
 
 require 'lazy_crud'
+require 'paranoia'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
