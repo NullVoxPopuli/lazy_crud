@@ -1,12 +1,6 @@
 # lazy_crud
 Lazy way to implement common actions in controllers in Rails
 
-
-authorizable
-============
-
-A gem for rails giving vast flexibility in authorization management.
-
 [![docs](https://img.shields.io/badge/docs-yardoc-blue.svg?style=flat-square)](http://www.rubydoc.info/github/NullVoxPopuli/lazy_crud)
 [![Gem Version](http://img.shields.io/gem/v/lazy_crud.svg?style=flat-square)](http://badge.fury.io/rb/lazy_crud)
 [![Build Status](http://img.shields.io/travis/NullVoxPopuli/lazy_crud.svg?style=flat-square)](https://travis-ci.org/NullVoxPopuli/lazy_crud)
