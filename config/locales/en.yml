@@ -1,0 +1,11 @@
+en:
+  lazy_crud:
+    crud:
+      success:
+        create: ''
+        update: ''
+        destroy: ''
+      failure:
+        create: ''
+        update: ''
+        destroy: ''
