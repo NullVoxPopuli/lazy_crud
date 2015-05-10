@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   # https://codingdaily.wordpress.com/2011/01/14/test-a-gem-with-the-rails-3-stack/
   s.add_development_dependency "bundler"
   s.add_development_dependency "rails", ">= 4"
-  s.add_development_dependency "factory_girl_rails", "~> 4.4"
+  s.add_development_dependency "factory_girl_rails"
   s.add_development_dependency "paranoia"
   s.add_development_dependency "awesome_print"
   s.add_development_dependency "rspec"

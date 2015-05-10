@@ -132,7 +132,7 @@ DEPENDENCIES
   awesome_print
   bundler
   codeclimate-test-reporter
-  factory_girl_rails (~> 4.4)
+  factory_girl_rails
   lazy_crud!
   paranoia
   pry-byebug
