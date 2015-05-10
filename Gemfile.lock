@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     lazy_crud (0.9.0)
-      activesupport (>= 3.0.0)
+      activesupport (>= 4.0.0)
       i18n
 
 GEM
