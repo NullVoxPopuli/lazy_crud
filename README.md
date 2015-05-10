@@ -1,4 +1,6 @@
 # lazy_crud
+
+[![Join the chat at https://gitter.im/NullVoxPopuli/lazy_crud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/NullVoxPopuli/lazy_crud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Lazy way to implement common actions in controllers in Rails
 
 [![docs](https://img.shields.io/badge/docs-yardoc-blue.svg?style=flat-square)](http://www.rubydoc.info/github/NullVoxPopuli/lazy_crud)
