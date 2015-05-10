@@ -1,6 +1,5 @@
-# lazy_crud
+# lazy_crud [![Join the chat at https://gitter.im/NullVoxPopuli/lazy_crud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/NullVoxPopuli/lazy_crud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/NullVoxPopuli/lazy_crud](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/NullVoxPopuli/lazy_crud?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Lazy way to implement common actions in controllers in Rails
 
 [![docs](https://img.shields.io/badge/docs-yardoc-blue.svg?style=flat-square)](http://www.rubydoc.info/github/NullVoxPopuli/lazy_crud)
@@ -37,29 +36,38 @@ Terminal
 
 ### Basic setup
 
+Include all of the basic actions, `create`, `edit`, `destroy`, etc
+
     class SomeObjectController < ApplicationController
       include LazyCrud
 
-      # At a bare minimum, you'll need to specify the
-      # class the controller is acting upon.
+At a bare minimum, you'll need to specify the class the controller is acting upon.
+
       set_resource SomeObject
 
-      # optional
-      # this is for in the case of you having nested routes, and want to scope
-      # SomeObject to its parent object.
-      # For example: /event/:event_id/discounts/:id
-      # Event is the parent object and Discount is the resource
-      #
-      # Note that there must be an @event instance variable set
-      #
-      # See specs for details
+
+** Optional: **
+
+This is for in the case of you having nested routes, and want to scope
+`SomeObject` to its parent object.
+
+For example: `/event/:event_id/discounts/:id`
+Event is the parent object and Discount is the resource
+
+Note that there must be an `@event` instance variable set.
+See specs for details.
+
       set_resource_parent Event
 
-      # sort of optional
-      # if you want to be able to update / create objects, you'll want to
-      # specify what parameters are allowed to be set.
-      # this uses strong parameters
+**Sort of Optional**
+
+If you want to be able to update / create objects, you'll want to
+specify what parameters are allowed to be set.
+This uses strong parameters.
+
       set_param_whitelist(:name, :amount)
+
+      # ... other controller stuff
     end
 
 ## Contributing
