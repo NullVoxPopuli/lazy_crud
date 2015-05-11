@@ -46,7 +46,7 @@ At a bare minimum, you'll need to specify the class the controller is acting upo
       set_resource SomeObject
 
 
-** Optional: **
+**Optional**
 
 This is for in the case of you having nested routes, and want to scope
 `SomeObject` to its parent object.
@@ -69,6 +69,27 @@ This uses strong parameters.
 
       # ... other controller stuff
     end
+
+
+### CRUD-hooks
+
+Sometimes you may want to manually assign attributes to an object before saving, such as current_user.
+
+There are two ways to do this:
+
+    def before_create
+      @resource.user = current_user
+    end
+
+or if you are wanting to have ruby throw an error if you spelled something wrong
+
+    before_create ->(resource){ resource.user = current_user }
+
+the error thrown will be NoMethodError
+
+Available CRUD-hooks are: `before_create`, `before_update`, `before_destroy`
+
+Each hook can be called multiple times, and they will be invoked in the order they were defined. If the `def` method is used, it will be invoked last.
 
 ## Contributing
 

@@ -5,11 +5,18 @@ require 'lazy_crud/version'
 module LazyCrud
   extend ActiveSupport::Concern
 
+  ACTIONS_WITH_HOOKS = [:create, :update, :destroy]
+
   included do
     class_attribute :resource_class
     class_attribute :parent_class
     class_attribute :param_whitelist
 
+    # crud hooks
+    class_attribute :before_create_hooks
+    class_attribute :before_update_hooks
+    class_attribute :before_destroy_hooks
+    # setting instance variables for actions and views
     before_action :set_resource, only: [:show, :edit, :update, :destroy]
     before_action :set_resource_instance, only: [:show, :edit, :update, :destroy]
   end
@@ -35,6 +42,35 @@ module LazyCrud
       self.param_whitelist = param_list
     end
 
+    ACTIONS_WITH_HOOKS.each do |action|
+      # adds a lambda to the hook array
+      define_method("before_#{action}") do |func|
+        hook_list = self.send("before_#{action}_hooks")
+        hook_list ||= []
+        hook_list << func
+
+        self.send("before_#{action}_hooks=", hook_list)
+      end
+    end
+
+  end
+
+  ACTIONS_WITH_HOOKS.each do |action|
+    # runs all of the hooks
+    define_method("run_before_#{action}_hooks") do
+      hook_list = self.send("before_#{action}_hooks")
+
+      if hook_list
+        hook_list.each do |hook|
+          hook.call(@resource)
+        end
+      end
+
+      # run the before action method if it exists
+      if respond_to?("before_#{action}")
+        self.send("before_#{action}")
+      end
+    end
   end
 
   def index
@@ -59,6 +95,7 @@ module LazyCrud
     # ensure we can still use model name-based instance variables
     set_resource_instance
 
+    run_before_create_hooks
     if @resource.save
       flash[:notice] = "#{resource_name} has been created."
       redirect_to action: :index
@@ -68,6 +105,7 @@ module LazyCrud
   end
 
   def update
+    run_before_update_hooks
     if @resource.update(resource_params)
       redirect_to action: :index
     else
@@ -76,6 +114,7 @@ module LazyCrud
   end
 
   def destroy
+    run_before_destroy_hooks
     @resource.destroy
 
     flash[:notice] = "#{resource_name} has been deleted."
