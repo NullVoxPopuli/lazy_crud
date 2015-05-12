@@ -5,6 +5,9 @@ require 'rails/all'
 
 require 'lazy_crud'
 require 'paranoia'
+# this would normally be included in the gemfile as
+# a dependency of lazy_crud
+require 'responders'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
