@@ -9,11 +9,22 @@ describe DiscountsController, type: :controller do
   end
 
   describe '#index' do
-    it 'sets the collection' do
+    before(:each) do
       create(:discount, event: @event)
+    end
+
+    it 'sets the collection' do
       get :index, event_id: @event.id
 
       expect(assigns(:discounts)).to be_present
+    end
+
+    it 'returns json' do
+      get :index, event_id: @event.id, format: :json
+
+      expect{
+        JSON.parse(response.body)
+      }.to_not raise_error
     end
   end
 
@@ -25,6 +36,15 @@ describe DiscountsController, type: :controller do
 
       expect(assigns(:discount)).to eq discount
     end
+
+    it 'returns json' do
+      discount = create(:discount, event: @event)
+      get :show, event_id: @event.id, id: discount.id, format: :json
+
+      expect{
+        JSON.parse(response.body)
+      }.to_not raise_error
+    end
   end
 
   describe '#new' do
@@ -33,10 +53,17 @@ describe DiscountsController, type: :controller do
 
       expect(assigns(:discount)).to be_new_record
     end
+
+    it 'returns json' do
+      get :new, event_id: @event.id, format: :json
+
+      expect{
+        JSON.parse(response.body)
+      }.to_not raise_error
+    end
   end
 
   describe '#edit' do
-
 
     it 'sets the instance of the object' do
       discount = create(:discount, event: @event)
@@ -53,6 +80,14 @@ describe DiscountsController, type: :controller do
 
       expect(assigns(:discount)).to be_present
     end
+
+    it 'returns json' do
+      post :create, event_id: @event.id, discount: build(:discount).attributes, format: :json
+
+      expect{
+        JSON.parse(response.body)
+      }.to_not raise_error
+    end
   end
 
   describe '#update' do
@@ -63,6 +98,16 @@ describe DiscountsController, type: :controller do
 
       field = assigns(:discount)
       expect(field.name).to eq "updated"
+    end
+
+    it 'returns json' do
+      discount = create(:discount, event: @event)
+      put :update, event_id: @event.id, id: discount.id,
+        discount: { name: "updated" }, format: :json
+
+      expect{
+        JSON.parse(response.body)
+      }.to_not raise_error
     end
   end
 
@@ -77,6 +122,15 @@ describe DiscountsController, type: :controller do
 
       expect(assigns(:discount).deleted_at).to be_present
     end
+
+    it 'returns json' do
+      discount = create(:discount, event: @event)
+      delete :destroy, event_id: @event.id, id: discount.id, format: :json
+
+      expect{
+        JSON.parse(response.body)
+      }.to_not raise_error
+    end
   end
 
 
@@ -87,8 +141,16 @@ describe DiscountsController, type: :controller do
       expect{
         post :undestroy, event_id: @event.id, id: discount.id
       }.to change(@event.discounts, :count).by 1
-
       expect(assigns(:discount)).to be_present
+    end
+
+    it 'returns json' do
+      discount = create(:discount, event: @event, deleted_at: Time.now)
+      post :undestroy, event_id: @event.id, id: discount.id, format: :json
+
+      expect{
+        JSON.parse(response.body)
+      }.to_not raise_error
     end
   end
 

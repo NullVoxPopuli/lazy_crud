@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.0'
 
   s.add_runtime_dependency "activesupport"
+  s.add_runtime_dependency "responders"
   s.add_runtime_dependency "i18n"
 
   # for testing a gem with a rails app (controller specs)
