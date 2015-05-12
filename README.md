@@ -14,12 +14,11 @@ Lazy way to implement common actions in controllers in Rails
 
  - Minimal Controller Coding
  - Resource Can be Scoped to Parent Resource
-
-### TODO
-
- - Generic Error Handeling
- - i18n
- - lambdas and procs for inserting custom behavior
+ - Uses the [responders](https://github.com/plataformatec/responders) gem
+   - Enables i18n on flash messages
+   - Defaultily enables html and json response types
+     - Good for rails apps with an api and / or transitioning to a js framework
+   - Responders is a great gem with lots of flexibility. Be sure to check it out.
 
 ## Installation
 
