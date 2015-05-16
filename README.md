@@ -90,6 +90,14 @@ Available CRUD-hooks are: `before_create`, `before_update`, `before_destroy`
 
 Each hook can be called multiple times, and they will be invoked in the order they were defined. If the `def` method is used, it will be invoked last.
 
+### Overridng
+
+If you really don't want any default functionality, you can always override
+
+    def index
+      @raffles = @event.raffles.with_deleted
+    end
+
 ## Contributing
 
 1. Fork the project
