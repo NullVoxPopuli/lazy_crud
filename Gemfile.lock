@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lazy_crud (0.9.6)
+    lazy_crud (0.9.7)
       activesupport
       i18n
       responders
