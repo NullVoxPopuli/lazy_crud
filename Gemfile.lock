@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lazy_crud (0.9.7.1)
+    lazy_crud (0.9.8.0)
       activesupport
       i18n
       responders
@@ -168,3 +168,6 @@ DEPENDENCIES
   rspec
   rspec-rails
   sqlite3
+
+BUNDLED WITH
+   1.10.3

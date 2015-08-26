@@ -35,15 +35,14 @@ Terminal
 
 ### Basic setup
 
-Include all of the basic actions, `create`, `edit`, `destroy`, etc
+To include all of the basic actions, `create`, `edit`, `destroy`, etc,
+just add `include LazyCrud` to any controller.
 
-    class SomeObjectController < ApplicationController
+    class SomeObjectsController < ApplicationController
       include LazyCrud
 
-At a bare minimum, you'll need to specify the class the controller is acting upon.
 
-      set_resource SomeObject
-
+Just make sure the model `SomeObject` exists.
 
 **Optional**
 
@@ -57,6 +56,16 @@ Note that there must be an `@event` instance variable set.
 See specs for details.
 
       set_resource_parent Event
+
+However, if you follow standard naming conventions, you can omit the above line
+and have a controller that looks like this:
+
+    Parent::ExamplesController < ApplicationController
+        include LazyCrud
+
+and the `Parent` class would be set as the resource parent.
+
+Just make sure that a `Parent` `has_many :examples` 
 
 **Sort of Optional**
 

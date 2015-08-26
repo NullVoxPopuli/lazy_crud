@@ -33,6 +33,9 @@ module LazyCrud
     # setting instance variables for actions and views
     before_action :set_resource, only: [:show, :edit, :update, :destroy]
     before_action :set_resource_instance, only: [:show, :edit, :update, :destroy]
+
+    # set default Resource / Parent Resource if applicable
+    set_default_resources
   end
 
 end

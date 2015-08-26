@@ -16,6 +16,27 @@ module LazyCrud
       self.parent_class = klass
     end
 
+    # determine default resource / pareent resource (if applicable)
+    # based on the naming convention
+    # e.g.: Parent::ModelController
+    def set_default_resources
+      name = self.name
+      namespaced_names = name.split(/::|Controller/)
+
+      model_name = namespaced_names.pop.try(:singularize)
+      parent_name = namespaced_names.join('::').try(:singularize)
+
+      if model_name.present?
+        self.resource_class = model_name.constantize
+      else
+        raise "#{model_name} based on #{name} does not exist."
+      end
+
+      if parent_name.present?
+        self.parent_class = parent_name.constantize
+      end
+    end
+
     # the list of parameters to allow through the strong parameter filter
     def set_param_whitelist(*param_list)
       self.param_whitelist = param_list
