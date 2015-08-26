@@ -27,13 +27,13 @@ module LazyCrud
       parent_name = namespaced_names.join('::').try(:singularize)
 
       if model_name.present?
-        self.resource_class = model_name.constantize
+        set_resource model_name.constantize
       else
         raise "#{model_name} based on #{name} does not exist."
       end
 
       if parent_name.present?
-        self.parent_class = parent_name.constantize
+        set_resource_parent parent_name.constantize
       end
     end
 
