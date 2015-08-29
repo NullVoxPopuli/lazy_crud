@@ -25,13 +25,13 @@ Lazy way to implement common actions in controllers in Rails
 Gemfile
 
 ```ruby
-    gem 'lazy_crud'
+gem 'lazy_crud'
 ```
 
 Terminal
 
 ```ruby
-    gem install lazy_crud
+gem install lazy_crud
 ```
 
 ## Configuration
@@ -43,8 +43,8 @@ To include all of the basic actions, `create`, `edit`, `destroy`, etc,
 just add `include LazyCrud` to any controller.
 
 ```ruby
-    class SomeObjectsController < ApplicationController
-      include LazyCrud
+class SomeObjectsController < ApplicationController
+  include LazyCrud
 ```
 
 Just make sure the model `SomeObject` exists.
@@ -61,15 +61,15 @@ Note that there must be an `@event` instance variable set.
 See specs for details.
 
 ```ruby
-      set_resource_parent Event
+set_resource_parent Event
 ```
 
 However, if you follow standard naming conventions, you can omit the above line
 and have a controller that looks like this:
 
 ```ruby
-    Parent::ExamplesController < ApplicationController
-        include LazyCrud
+Parent::ExamplesController < ApplicationController
+    include LazyCrud
 ```
 
 and the `Parent` class would be set as the resource parent.
@@ -82,11 +82,9 @@ If you want to be able to update / create objects, you'll want to
 specify what parameters are allowed to be set.
 This uses strong parameters.
 
-      set_param_whitelist(:name, :amount)
-
-      # ... other controller stuff
-    end
-
+```ruby
+set_param_whitelist(:name, :amount)
+```
 
 ### CRUD-hooks
 
@@ -95,15 +93,15 @@ Sometimes you may want to manually assign attributes to an object before saving,
 There are two ways to do this:
 
 ```ruby
-    def before_create
-      @resource.user = current_user
-    end
+def before_create
+  @resource.user = current_user
+end
 ```
 
 or if you are wanting to have ruby throw an error if you spelled something wrong
 
 ```ruby
-    before_create ->(resource){ resource.user = current_user }
+before_create ->(resource){ resource.user = current_user }
 ```
 
 the error thrown will be NoMethodError
@@ -117,9 +115,9 @@ Each hook can be called multiple times, and they will be invoked in the order th
 If you really don't want any default functionality, you can always override
 
 ```ruby
-    def index
-      @raffles = @event.raffles.with_deleted
-    end
+def index
+  @raffles = @event.raffles.with_deleted
+end
 ```
 
 ## Contributing
