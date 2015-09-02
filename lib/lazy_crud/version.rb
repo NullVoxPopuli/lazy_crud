@@ -1,3 +1,3 @@
 module LazyCrud
-  VERSION = "0.9.8.0"
+  VERSION = "0.9.8.1"
 end
