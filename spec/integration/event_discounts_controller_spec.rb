@@ -11,7 +11,7 @@ describe Event::DiscountsController, type: :controller do
   describe '#index' do
     before(:each) do
       @discount = create(:discount, event: @event)
-      create(:discount)
+      @nope = create(:discount)
     end
 
     it 'sets the collection' do
@@ -20,6 +20,7 @@ describe Event::DiscountsController, type: :controller do
       discounts = assigns(:discounts)
       expect(discounts).to be_present
       expect(discounts).to include(@discount)
+      expect(discounts).to_not include(@nope)
     end
 
     it 'returns json' do
