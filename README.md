@@ -74,7 +74,10 @@ Parent::ExamplesController < ApplicationController
 
 and the `Parent` class would be set as the resource parent.
 
-Just make sure that a `Parent` `has_many :examples` 
+Just make sure that a `Parent` `has_many :examples`
+
+Note that if you use a namespace that isn't named after a model, the resource_parent will not be set.
+It will output to the debug log though, saying that the namespace doesn't match up with a model.
 
 **Sort of Optional**
 
