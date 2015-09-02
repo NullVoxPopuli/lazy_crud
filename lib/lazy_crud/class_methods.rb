@@ -33,7 +33,12 @@ module LazyCrud
       end
 
       if parent_name.present?
-        set_resource_parent parent_name.constantize
+        parent_klass = parent_name.safe_constantize
+        if parent_klass
+          set_resource_parent parent_klass
+        else
+          logger.debug "[lazy_crud] #{parent_name} could not be found as a class / module."
+        end
       end
     end
 

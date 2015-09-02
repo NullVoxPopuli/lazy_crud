@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
   resources :users
 
-  resources :events do
-    resources :discounts do
-      member do
-        post :undestroy
-      end
+  resources :discounts do
+    member do
+      post :undestroy
     end
+  end
+
+  resources :events do
+    resources :discounts, controller: 'events/discounts'
+  end
+
+  resources :hosted_events do
+    resources :discounts, controller: 'hosted_events/discounts'
   end
 
 
