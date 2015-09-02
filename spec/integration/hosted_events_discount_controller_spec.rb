@@ -10,13 +10,16 @@ describe HostedEvents::DiscountsController, type: :controller do
 
   describe '#index' do
     before(:each) do
-      create(:discount, event: @event)
+      @discount = create(:discount, event: @event)
+      create(:discount)
     end
 
     it 'sets the collection' do
       get :index, hosted_event_id: @event.id
 
-      expect(assigns(:discounts)).to be_present
+      discounts = assigns(:discounts)
+      expect(discounts).to be_present
+      expect(discounts).to include(@discount)
     end
 
     it 'returns json' do
