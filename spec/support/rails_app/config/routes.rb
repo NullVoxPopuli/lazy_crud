@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :users
-
   resources :discounts do
     member do
       post :undestroy
@@ -15,6 +14,7 @@ Rails.application.routes.draw do
     resources :discounts, controller: 'hosted_events/discounts'
   end
 
+  resources :custom_events
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

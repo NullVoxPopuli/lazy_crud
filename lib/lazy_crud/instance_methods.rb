@@ -2,17 +2,17 @@ module LazyCrud
   module InstanceMethods
 
     def index
-      respond_with(set_collection_instance)
+      respond_with(set_collection_instance, collection_options)
     end
 
     def show
       # instance variable set in before_action
-      respond_with(get_resource_instance)
+      respond_with(get_resource_instance, options)
     end
 
     def new
       set_resource_instance(resource_proxy.new)
-      respond_with(get_resource_instance)
+      respond_with(get_resource_instance, options)
     end
 
     def edit
@@ -29,34 +29,21 @@ module LazyCrud
       run_before_create_hooks
 
       flash[:notice] = "#{resource_name} has been created." if @resource.save
-      respond_with(@resource, location: { action: :index })
-      # if @resource.save
-      #   flash[:notice] = "#{resource_name} has been created."
-      #   redirect_to action: :index
-      # else
-      #   render action: :new
-      # end
+      respond_with(@resource, options)
     end
 
     def update
       run_before_update_hooks
 
       @resource.update(resource_params)
-      respond_with(@resource, location: { action: :index })
-      # if @resource.update(resource_params)
-      #   redirect_to action: :index
-      # else
-      #   redirect_to action: :edit
-      # end
+      respond_with(@resource, options)
     end
 
     def destroy
       run_before_destroy_hooks
       @resource.destroy
 
-      respond_with(@resource, location: { action: :index })
-      # flash[:notice] = "#{resource_name} has been deleted."
-      # redirect_to action: :index
+      respond_with(@resource, options)
     end
 
     # only works if deleting of resources occurs by setting
@@ -68,13 +55,21 @@ module LazyCrud
       @resource.deleted_at = nil
       @resource.save
 
-      respond_with(@resource, location: { action: :index })
-
-      # flash[:notice] = "#{resource_name} has been undeleted"
-      # redirect_to action: :index
+      respond_with(@resource, options)
     end
 
     private
+
+    def options
+      default = { location: { action: :index } }
+      return default.merge({ serializer: serializer }) if serializer
+      default
+    end
+
+    def collection_options
+      return { each_serializer: serializer } if serializer
+      {}
+    end
 
     def resource_name
       @resource.try(:name) || @resource.class.name

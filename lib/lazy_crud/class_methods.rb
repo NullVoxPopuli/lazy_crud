@@ -2,6 +2,11 @@ module LazyCrud
   module ClassMethods
     include Constants
 
+    # for use with APIs
+    def set_serializer(klass)
+      self.serializer = klass
+    end
+
     # all REST actions will take place on an instance of this class
     def set_resource(klass)
       self.resource_class = klass
@@ -27,9 +32,11 @@ module LazyCrud
       parent_name = namespaced_names.join('::').try(:singularize)
 
       if model_name.present?
-        set_resource model_name.constantize
-      else
-        raise "#{model_name} based on #{name} does not exist."
+        set_resource model_name.safe_constantize
+      end
+
+      unless self.resource_class
+        logger.error "#{model_name} based on #{name} does not exist."
       end
 
       if parent_name.present?

@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'factory_girl_rails'
 require 'rails/all'
 require 'rspec/rails'
+require 'active_model_serializers'
 
 ActiveRecord::Migration.maintain_test_schema!
 

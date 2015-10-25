@@ -25,6 +25,7 @@ module LazyCrud
     class_attribute :resource_class
     class_attribute :parent_class
     class_attribute :param_whitelist
+    class_attribute :serializer
 
     # crud hooks
     class_attribute :before_create_hooks

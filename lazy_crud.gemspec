@@ -39,5 +39,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency "codeclimate-test-reporter"
+  s.add_development_dependency "active_model_serializers", "0.10.0.rc3"
 
 end

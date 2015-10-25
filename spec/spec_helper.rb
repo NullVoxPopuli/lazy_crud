@@ -8,7 +8,6 @@ require "codeclimate-test-reporter"
 ENV['CODECLIMATE_REPO_TOKEN'] = "4ce664811485b705e1c44aa00ff41f207347874b2e840e38f27880f8ebaf96e5"
 CodeClimate::TestReporter.start
 
-require 'rspec/autorun'
 require 'factory_girl'
 
 # This Gem
@@ -27,7 +26,6 @@ Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each {|file|
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
 
